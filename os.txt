@@ -1,0 +1,63 @@
+class State
+{
+	//process table
+	//exit_request bool
+	//current dir
+	//history
+	....
+}
+
+class Command
+{
+	void execute(String input, State state)
+	{
+		...
+	}
+
+}
+
+
+class Terminal
+{
+	private:
+		State state;
+		map<String, Command*> commands;
+
+	public:
+		Terminal(map<String, Command> commands);
+
+		void run(){
+			while(!state.exit_request)
+			{
+				//read command
+				//parse command to "name"
+				// if mame in commands
+					commands[name]->execute(input, state)
+				// else 
+					run_app(input)
+
+			}
+		}
+		PID run_app(input)
+		{
+			//start program and update state
+		}
+		void signal_handler()
+		{
+			//need to access this->state
+		}
+}
+
+
+
+
+void main()
+{
+	commands = {
+		'pwd': PWDCommand(),
+		'cd': CDCommand(),
+		...
+	}
+	Terminal term(commands)
+	term.run()
+}
