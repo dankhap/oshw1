@@ -8,18 +8,12 @@
 /*	smash.c
 main file. This file contains the main function of smash
 *******************************************************************/
-#include <iostream>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
+
+
 #include <string.h>
-#include <signal.h>
-#include "commands.h"
-#include "signals.h"
+#include <map>
+
 #include "Command.h"
-#include "map"
 #include "Terminal.h"
 #include "PWDcommand.h"
 #define MAX_LINE_SIZE 80

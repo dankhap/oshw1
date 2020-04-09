@@ -4,10 +4,9 @@
 
 #ifndef OSHW1_TERMINAL_H
 #define OSHW1_TERMINAL_H
-#include <sched.h>
 #include <vector>
-#include "map"
-#include "string"
+#include <map>
+#include <string>
 #include "Command.h"
 #include "State.h"
 using std::map;
@@ -16,16 +15,14 @@ using std::string ;
 class Terminal
 {
 private:
-    char* delim = " \t\n";
     std::map<string ,Command*> commands;
     State terminal_state;
-    std::vector<char*> tokens; // vector for arguments
     //
 public:
-    explicit  Terminal(std::map<string,Command*>);
+    explicit  Terminal(std::map<string,Command*> );
     ~Terminal() = default;
     void run();
-    pid_t run_app();
+    static pid_t run_app(const vector<string>& tokens);
     void signal_handler();
 
 

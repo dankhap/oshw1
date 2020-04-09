@@ -4,14 +4,8 @@
 
 #ifndef OSHW1_STATE_H
 #define OSHW1_STATE_H
-#include <iostream>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <signal.h>
+
+#include <string>
 using std::string;
 
 
@@ -21,7 +15,7 @@ private:
 public:
     bool ilegal_command;
     bool exit_request;
-    string cur_dir;
+    std::string cur_dir;
     State();
 
 };

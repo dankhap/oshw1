@@ -20,7 +20,7 @@
 class PWDcommand : public Command {
 private:
 public:
-    void  execute(std::vector<char*>,State) override;
+    virtual void  execute(std::vector<string>,State&) override;
 
 };
 #endif //OSHW1_PWDCOMMAND_H

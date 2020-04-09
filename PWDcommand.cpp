@@ -8,6 +8,6 @@
 #include "PWDcommand.h"
 
 
-void PWDcommand:: execute(std::vector<char*>,State) {
+void PWDcommand:: execute(std::vector<string>,State&) {
     std::cout<<State().cur_dir<<std::endl;
 }

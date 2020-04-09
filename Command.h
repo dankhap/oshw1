@@ -4,15 +4,13 @@
 
 #ifndef OSHW1_COMMAND_H
 #define OSHW1_COMMAND_H
-#include <iostream>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "commands.h"
+#include <string>
+#include <vector>
 #include "State.h"
+
+using std::vector;
+using std::string;
+
 class  Command
 {
 private:
@@ -20,7 +18,7 @@ public:
     Command() = default;
     ~Command() = default;
 
-    virtual void  execute(std::vector<char*>,State) {
+    virtual void  execute(std::vector<std::string>,State&) {
         //vitrual func
     }
 
