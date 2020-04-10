@@ -1,0 +1,1 @@
+/usr/bin/c++  -g  -rdynamic CMakeFiles/smash.dir/smash.cpp.o CMakeFiles/smash.dir/Command.cpp.o CMakeFiles/smash.dir/PWDcommand.cpp.o CMakeFiles/smash.dir/Terminal.cpp.o CMakeFiles/smash.dir/State.cpp.o  -o smash 

@@ -18,7 +18,7 @@ Terminal::Terminal(std::map<string,Command*> com):commands(std::move(com))
 }
 /*Run function, takes input from user, stores in vector of strings for argument(cast from char to string (problem?)
  * */
-void Terminal::run(){
+void Terminal::run(){ // git hub test
     string cl;
 
     while(!terminal_state.exit_request){
