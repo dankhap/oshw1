@@ -32,6 +32,5 @@
 *.app
 
 *.xml
-.idea/
-cmake-build-debug
+
 
