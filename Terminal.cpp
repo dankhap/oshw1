@@ -47,6 +47,7 @@ pid_t Terminal::run_app(const vector<string>& tokens) {
     } else{
         std::cout<<"Forground  "<<std::endl;// do forground stuff
     }
+    return 0;
 }
 
 void Terminal::signal_handler() {
