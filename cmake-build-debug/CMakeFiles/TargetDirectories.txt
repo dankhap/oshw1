@@ -1,0 +1,3 @@
+/home/daniel/Code/OS/oshw1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/daniel/Code/OS/oshw1/cmake-build-debug/CMakeFiles/smash.dir
+/home/daniel/Code/OS/oshw1/cmake-build-debug/CMakeFiles/edit_cache.dir
