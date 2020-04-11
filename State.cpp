@@ -5,6 +5,6 @@
 #include <unistd.h>
 #include "State.h"
 
-State::State() : ilegal_command(false),exit_request(false), cur_dir(get_current_dir_name()){
+State::State() : ilegal_command(false),exit_request(false), cur_dir(get_current_dir_name()),prev_dir(get_current_dir_name()){
 
 }

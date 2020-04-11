@@ -5,22 +5,19 @@
 #ifndef OSHW1_PWDCOMMAND_H
 #define OSHW1_PWDCOMMAND_H
 
-#include <iostream>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <signal.h>
+
 #include "State.h"
-#include "vector"
 #include "Command.h"
+#include <stdio.h>
+#include <iostream>
+
+using namespace std;
+
 
 class PWDcommand : public Command {
 private:
 public:
-    virtual void  execute(std::vector<string>,State&) override;
+    virtual void  execute(std::vector<string> args,State&) override;
 
 };
 #endif //OSHW1_PWDCOMMAND_H

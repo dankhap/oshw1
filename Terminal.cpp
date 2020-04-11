@@ -34,11 +34,27 @@ void Terminal::run(){ // git hub test
 
         if(commands.count(args.front())){  // if command is built in command (maybe better way the to use .count
             commands[args.front()]->execute(args,terminal_state);
+            if(terminal_state.ilegal_command){
+                std::cout<<"Ilegal command, try again"<<std::endl;
+                terminal_state.ilegal_command = false;
+            }
         } else(run_app(args));
 
+        if(!terminal_state.ilegal_command){       // handle saving the commands;
+            if(terminal_state.history.size()<50){
+                terminal_state.history.push_back(args);
+            } else{
+                terminal_state.history.pop_back();
+                terminal_state.history.push_back(args);
+            }
 
 
-    }}
+        }
+
+
+
+    }
+}
 
 pid_t Terminal::run_app(const vector<string>& tokens) {
 

@@ -5,7 +5,10 @@
 #ifndef OSHW1_STATE_H
 #define OSHW1_STATE_H
 
+#include <stdio.h>
 #include <string>
+#include <vector>
+
 using std::string;
 
 
@@ -16,6 +19,8 @@ public:
     bool ilegal_command;
     bool exit_request;
     std::string cur_dir;
+    std::string prev_dir;
+    std::vector<std::vector<std::string>> history;
     State();
 
 };
