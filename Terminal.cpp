@@ -81,9 +81,9 @@ pid_t Terminal::run_app(vector<string> tokens) {
     transform(tokens.begin(), tokens.end(), back_inserter(vc), convert);
     int pid = fork();
     if(pid == 0){
-        if(!execv(exe_name.c_str(), (char**)&vc[1])) {
+        if(execv(exe_name.c_str(), (char**)&vc[1]) == -1) {
             perror(nullptr);
-            exit(-1);
+            exit(errno);
         }
     } else {
         if(is_bg){
