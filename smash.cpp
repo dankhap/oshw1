@@ -10,7 +10,7 @@ main file. This file contains the main function of smash
 *******************************************************************/
 
 
-#include <string.h>
+#include <cstring>
 #include <map>
 
 #include "Command.h"
@@ -35,9 +35,14 @@ using std::map;
 int main(int argc, char *argv[])
 {
 
-    std::map<std::string,Command*> commands = {{"pwd",new PWDcommand},{"cd", new cdCommand},{"history",new histCOMMAND}
-    ,{"showpid",new shpdCOMMAND},{"cp", new cpCOMMAND},{"diff",new difCOMMAND},
-                                               {"quit",new quitCOMMAND}}; // built in command map
+    std::map<std::string,Command*> commands = {{"pwd",new PWDcommand},
+                                               {"cd", new cdCommand},
+                                               {"history",new histCOMMAND},
+                                               {"showpid",new shpdCOMMAND},
+                                               {"cp", new cpCOMMAND},
+                                               {"diff",new difCOMMAND},
+                                              // {"quit",new quitCOMMAND}
+    }; // built in command map
     Terminal term(commands);   // generate terminal
     term.run(); // run it
 
