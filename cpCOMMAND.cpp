@@ -2,7 +2,6 @@
 // Created by os on 11.4.2020.
 //
 
-#include <fstream>
 #include "cpCOMMAND.h"
 
  void::cpCOMMAND::execute(std::vector<string> args, State &S) {

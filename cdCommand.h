@@ -20,6 +20,7 @@ class cdCommand : public Command{
 private:
 public:
     virtual void  execute(std::vector<string> args,State& S) override;
+    virtual ~cdCommand()= default;
 
 };
 

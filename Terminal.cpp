@@ -47,12 +47,12 @@ void Terminal::run(){ // git hub test
                 terminal_state.history.pop_back();
                 terminal_state.history.push_back(args);
             }
-
+            if(terminal_state.exit_request ){
+                exit(0);
+                // handle quit command
+            }
 
         }
-
-
-
     }
 }
 

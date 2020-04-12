@@ -20,6 +20,8 @@ main file. This file contains the main function of smash
 #include "histCOMMAND.h"
 #include "shpdCOMMAND.h"
 #include "cpCOMMAND.h"
+#include "difCOMMAND.h"
+#include "quitCOMMAND.h"
 #define MAX_LINE_SIZE 80
 #define MAXARGS 20
 
@@ -34,10 +36,10 @@ int main(int argc, char *argv[])
 {
 
     std::map<std::string,Command*> commands = {{"pwd",new PWDcommand},{"cd", new cdCommand},{"history",new histCOMMAND}
-    ,{"showpid",new shpdCOMMAND},{"cp", new cpCOMMAND}}; // built in command map
+    ,{"showpid",new shpdCOMMAND},{"cp", new cpCOMMAND},{"diff",new difCOMMAND},
+                                               {"quit",new quitCOMMAND}}; // built in command map
     Terminal term(commands);   // generate terminal
     term.run(); // run it
-
 
     return 0;
 }

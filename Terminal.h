@@ -20,7 +20,7 @@ private:
     //
 public:
     explicit  Terminal(std::map<string,Command*> );
-    ~Terminal() = default;
+      ~Terminal() = default;
     void run();
     static pid_t run_app(const vector<string>& tokens);
     void signal_handler();

@@ -1,9 +1,10 @@
 //
-// Created by os on 11.4.2020.
+// Created by os on 12.4.2020.
 //
 
-#ifndef SMASH_CPCOMMAND_H
-#define SMASH_CPCOMMAND_H
+#ifndef SMASH_QUITCOMMAND_H
+#define SMASH_QUITCOMMAND_H
+
 #include <iostream>
 #include <sys/types.h>
 #include <sys/wait.h>
@@ -15,9 +16,10 @@
 #include "State.h"
 #include "Command.h"
 
-class cpCOMMAND :public Command{
+class quitCOMMAND : public Command{
 private:
 public:
     virtual void  execute(std::vector<string> args,State& S) override;
 };
-#endif //SMASH_CPCOMMAND_H
+
+#endif //SMASH_QUITCOMMAND_H
