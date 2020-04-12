@@ -5,6 +5,10 @@
 #include <iostream>
 #include <utility>
 #include <sstream>
+#include <unistd.h>
+#include <sys/wait.h>
+#include <cstring>
+#include <algorithm>
 #include "Terminal.h"
 #define MAXARGS 20
 #define MAX_LINE_SIZE 80
@@ -25,7 +29,7 @@ void Terminal::run(){ // git hub test
         cout<<"smash > ";
         vector<string> args;
         getline(cin, cl);
-
+        if(cl.empty()) continue;
         auto iss = istringstream{cl};
         auto token = string{};
         while (iss >> token) {
@@ -57,17 +61,47 @@ void Terminal::run(){ // git hub test
     }
 }
 
-pid_t Terminal::run_app(const vector<string>& tokens) {
+const char *convert(const std::string & s)
+{
+    return s.c_str();
+}
 
-    if(tokens.back() == "&"){
-        std::cout<<"Backround & arg "<<std::endl;// do backround stuff
-    } else{
-        std::cout<<"Forground  "<<std::endl;// do forground stuff
+pid_t Terminal::run_app(vector<string> tokens) {
+    if(tokens.empty()){
+        return 0;
     }
+    bool is_bg = false;
+    int res = 0;
+    if(tokens.back() == "&") {
+        tokens.pop_back();
+        is_bg = true;
+    }
+    string exe_name = tokens[0];
+    vector<const char*>  vc;
+    transform(tokens.begin(), tokens.end(), back_inserter(vc), convert);
+    int pid = fork();
+    if(pid == 0){
+        if(execv(exe_name.c_str(), (char**)&vc[1]) == -1) {
+            perror(nullptr);
+            exit(errno);
+        }
+    } else {
+        if(is_bg){
+            time_t start = time(nullptr);
+            Job j(pid, start, exe_name);
+            this->terminal_state.p_state[pid] = j;
+            cout<<"DEBUG: bg job "<< exe_name <<" started at "<< std::ctime(&start) <<",pid:"<< pid <<endl;
+        } else{
+            wait(&res);
+        }
+    }
+
     return 0;
 }
 
 void Terminal::signal_handler() {
-    this->terminal_state.ilegal_command=true;
+    terminal_state.ilegal_command=true;
 }
+
+
 

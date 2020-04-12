@@ -5,12 +5,22 @@
 #ifndef OSHW1_STATE_H
 #define OSHW1_STATE_H
 
-#include <stdio.h>
 #include <string>
+#include <utility>
 #include <vector>
+#include <map>
+#include <ctime>
 
 using std::string;
+using std::map;
 
+struct Job{
+    int pid;
+    std::time_t time_in;
+    std::string name;
+    Job();
+    Job(int id, std::time_t time, std::string n);
+};
 
 class State
 {
@@ -21,6 +31,7 @@ public:
     std::string cur_dir;
     std::string prev_dir;
     std::vector<std::vector<std::string>> history;
+    std::map<int, Job> p_state;
     State();
 
 };

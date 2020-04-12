@@ -17,16 +17,18 @@ class Terminal
 private:
     std::map<string ,Command*> commands;
     State terminal_state;
+
+    bool is_path_valid(const string&);
+
     //
 public:
     explicit  Terminal(std::map<string,Command*> );
       ~Terminal() = default;
     void run();
-    static pid_t run_app(const vector<string>& tokens);
+    pid_t run_app(vector<string> tokens);
     void signal_handler();
 
 
-
-
 };
+
 #endif //OSHW1_TERMINAL_H
