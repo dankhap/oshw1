@@ -23,6 +23,7 @@ main file. This file contains the main function of smash
 #include "difCOMMAND.h"
 #include "quitCOMMAND.h"
 #include "JobsCommand.h"
+#include "KillCommand.h"
 
 #define MAX_LINE_SIZE 80
 #define MAXARGS 20
@@ -43,7 +44,8 @@ int main(int argc, char *argv[])
                                                {"showpid",new shpdCOMMAND},
                                                {"cp", new cpCOMMAND},
                                                {"diff",new difCOMMAND},
-                                               {"jobs", new JobsCommand}
+                                               {"jobs", new JobsCommand},
+                                               {"kill", new KillCommand}
                                               // {"quit",new quitCOMMAND}
     }; // built in command map
     Terminal term(commands);   // generate terminal

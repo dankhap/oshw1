@@ -9,7 +9,6 @@
 #include <sys/wait.h>
 #include <cstring>
 #include <algorithm>
-#include <chrono>
 #include "Terminal.h"
 #define MAXARGS 20
 #define MAX_LINE_SIZE 80
@@ -30,7 +29,7 @@ void Terminal::run(){ // git hub test
         cout<<"smash > ";
         vector<string> args;
         getline(cin, cl);
-
+        if(cl.empty()) continue;
         auto iss = istringstream{cl};
         auto token = string{};
         while (iss >> token) {
@@ -87,7 +86,7 @@ pid_t Terminal::run_app(vector<string> tokens) {
         }
     } else {
         if(is_bg){
-            time_t start = chrono::system_clock::to_time_t(chrono::system_clock::now());
+            time_t start = time(nullptr);
             Job j(pid, start, exe_name);
             this->terminal_state.p_state[pid] = j;
             cout<<"DEBUG: bg job "<< exe_name <<" started at "<< std::ctime(&start) <<",pid:"<< pid <<endl;
