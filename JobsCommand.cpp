@@ -5,6 +5,7 @@
 #include <iostream>
 #include <csignal>
 #include <ctime>
+#include <wait.h>
 #include "JobsCommand.h"
 
 void JobsCommand::execute(std::vector<string> args, State &s) {
@@ -13,17 +14,12 @@ void JobsCommand::execute(std::vector<string> args, State &s) {
         return;
     }
     int i = 0;
-    vector<int> dead_jobs;
+    s.refresh_jobs();
     for (std::pair<int, Job> job : s.p_state) {
-        if(kill(job.second.pid, 0) == -1 && errno == ESRCH) {
-            dead_jobs.push_back(job.second.pid);
-            continue;
-        }
+        string lbl = job.second.stopped ? "(Stopped)" : "";
         double elapsed_time = difftime(job.second.time_in, time(nullptr));
-        std::cout << "[" << i << "] " << job.second.name << " : " <<  job.first << " " << elapsed_time << " secs" << std::endl;
+        std::cout << "[" << i << "] " << job.second.name << " : " <<  job.first <<
+            " " << elapsed_time << " secs " << lbl << std::endl;
         i++;
-    }
-    for(int pid: dead_jobs) {
-        s.p_state.erase(pid);
     }
 }

@@ -18,6 +18,7 @@ struct Job{
     int pid;
     std::time_t time_in;
     std::string name;
+    bool stopped{};
     Job();
     Job(int id, std::time_t time, std::string n);
 };
@@ -33,6 +34,8 @@ public:
     std::vector<std::vector<std::string>> history;
     std::map<int, Job> p_state;
     State();
+
+    void refresh_jobs();
 
 };
 #endif //OSHW1_STATE_H
