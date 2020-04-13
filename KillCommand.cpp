@@ -4,7 +4,11 @@
 
 #include <iostream>
 #include <csignal>
+#include <wait.h>
+#include <unistd.h>
 #include "KillCommand.h"
+
+using namespace std;
 
 void KillCommand::execute(std::vector<string> args, State &s) {
     if(args.size() != 3){
@@ -23,7 +27,11 @@ void KillCommand::execute(std::vector<string> args, State &s) {
     }
     if(kill(pid, sig) == -1) {
         std::cout << "smash error: > kill " << pid << "- cannot send signal" << std::endl;
+        return;
     }
-    std::cout << "DEBUG - kill successfully: " << pid << std::endl;
-    //s.p_state.erase(pid);
+    sleep(1);
+    kill(pid, sig);
+    int stat = 0;
+    pid_t r = waitpid(pid,&stat, WNOHANG);
+    std::cout << r << "," << stat << endl;
 }

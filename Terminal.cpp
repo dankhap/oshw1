@@ -90,7 +90,6 @@ pid_t Terminal::run_app(vector<string> tokens) {
             time_t start = time(nullptr);
             Job j(pid, start, exe_name);
             this->terminal_state.p_state[pid] = j;
-            cout<<"DEBUG: bg job "<< exe_name <<" started at "<< std::ctime(&start) <<",pid:"<< pid <<endl;
         } else{
             wait(&res);
         }
