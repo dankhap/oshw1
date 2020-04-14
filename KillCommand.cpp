@@ -29,9 +29,4 @@ void KillCommand::execute(std::vector<string> args, State &s) {
         std::cout << "smash error: > kill " << pid << "- cannot send signal" << std::endl;
         return;
     }
-    sleep(1);
-    kill(pid, sig);
-    int stat = 0;
-    pid_t r = waitpid(pid,&stat, WNOHANG);
-    std::cout << r << "," << stat << endl;
 }

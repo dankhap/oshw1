@@ -102,5 +102,10 @@ void Terminal::signal_handler() {
     terminal_state.ilegal_command=true;
 }
 
+/*
+/usr/bin/gnome-calculator &
+jobs
+kill -19
 
+ */
 

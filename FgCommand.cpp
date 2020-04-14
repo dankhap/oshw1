@@ -14,7 +14,7 @@ void FgCommand::execute(std::vector<string> args, State &s) {
     unsigned int p_idx = -1;
     if(args.size() == 2)
         p_idx = std::stoi(args[2]);
-    if(p_idx > s.p_state.size()){
+    if((int)p_idx > (int)s.p_state.size()){
         s.ilegal_command = true;
         return;
     }
@@ -57,7 +57,7 @@ unsigned int FgCommand::find_latest_job_idx(const map<int, Job>& jobs) {
 
 void FgCommand::move_to_fg(const Job & j) {
     std::cout << j.name << std::endl;
-
+    kill(j.pid, SIGCONT);
     int status = 0;
     waitpid(j.pid, &status, 0);
 }

@@ -28,8 +28,11 @@ void State::refresh_jobs() {
     std::vector<int> dead_jobs;
     int status = 0;
     for (std::pair<int, Job> job : p_state) {
-        pid_t result = waitpid(job.second.pid, &status, WNOHANG);
-        if (result == -1 && errno == ESRCH) {
+        pid_t result = waitpid(job.second.pid, &status, WUNTRACED|WNOHANG);
+        if(result == 0){
+            continue;
+        }
+        if (result == -1 || WIFEXITED(status) || WIFSIGNALED(status)) {
             dead_jobs.push_back(job.second.pid);
             continue;
         }
