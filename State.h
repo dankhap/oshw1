@@ -18,7 +18,7 @@ struct Job{
     int pid;
     std::time_t time_in;
     std::string name;
-    bool stopped{};
+    bool stopped;
     Job();
     Job(int id, std::time_t time, std::string n);
 };
