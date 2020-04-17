@@ -18,6 +18,3 @@ smash: $(OBJS)
 clean:
 	$(RM) $(TARGET) *.o *~ "#"* core.*
 
-
-
-
