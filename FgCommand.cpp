@@ -27,6 +27,7 @@ void FgCommand::execute(std::vector<string> args, State &s) {
     for (const auto& kv : s.p_state) {
         if(i==p_idx)
             j=kv.second;
+        i++;
     }
     move_to_fg(j);
 }

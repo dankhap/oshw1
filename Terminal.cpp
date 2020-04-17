@@ -10,6 +10,7 @@
 #include <cstring>
 #include <algorithm>
 #include "Terminal.h"
+
 #define MAXARGS 20
 #define MAX_LINE_SIZE 80
 using namespace std;
@@ -81,6 +82,7 @@ pid_t Terminal::run_app(vector<string> tokens) {
     transform(tokens.begin(), tokens.end(), back_inserter(vc), convert);
     int pid = fork();
     if(pid == 0){
+        setpgrp(); // Change group id for child process so signals wont be sent to all, and only main process will catch signal.
         if(execv(exe_name.c_str(), (char**)&vc[1]) == -1) {
             perror(nullptr);
             exit(errno);
@@ -99,7 +101,14 @@ pid_t Terminal::run_app(vector<string> tokens) {
 }
 
 void Terminal::signal_handler() {
-    terminal_state.ilegal_command=true;
+    struct sigaction act1{};
+    act1.sa_handler = &INT_sig_handler;
+
+    struct sigaction act2{};
+    act2.sa_handler = &STP_sig_handler;
+
+    //sigaction(SIGINT,)
+
 }
 
 /*
