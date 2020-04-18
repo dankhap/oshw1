@@ -26,7 +26,7 @@ main file. This file contains the main function of smash
 #include "KillCommand.h"
 #include "FgCommand.h"
 
-#define MAX_LINE_SIZE 80
+#define MAX_LINE_SIZE 81
 #define MAXARGS 20
 
 using std::map;
