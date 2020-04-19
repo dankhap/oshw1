@@ -6,7 +6,9 @@
 #include <wait.h>
 #include "FgCommand.h"
 
-void FgCommand::execute(std::vector<string> args, State &s) {
+ContCommand::ContCommand(ContType type) : type(type) {}
+
+void ContCommand::execute(std::vector<string> args, State &s) {
     if(args.size() > 2) {
         s.ilegal_command = true;
         return;
@@ -29,10 +31,10 @@ void FgCommand::execute(std::vector<string> args, State &s) {
             j=kv.second;
         i++;
     }
-    move_to_fg(j);
+    continue_job(j, type == ContType::FG);
 }
 
-unsigned int FgCommand::find_latest_job_idx(const map<int, Job>& jobs) {
+unsigned int ContCommand::find_latest_job_idx(const map<int, Job>& jobs) {
     time_t t = time(nullptr);
     double diff = 0;
     int i = 0;
@@ -56,9 +58,16 @@ unsigned int FgCommand::find_latest_job_idx(const map<int, Job>& jobs) {
     return latest_pidx;
 }
 
-void FgCommand::move_to_fg(const Job & j) {
+void ContCommand::continue_job(const Job & j, bool wait) {
+    if(!wait && !j.stopped) {
+        std::cout << "job is not stopped, cannot continue!";
+        return;
+    }
     std::cout << j.name << std::endl;
     kill(j.pid, SIGCONT);
     int status = 0;
-    waitpid(j.pid, &status, 0);
+    if(wait){
+        waitpid(j.pid, &status, 0);
+    }
+    
 }

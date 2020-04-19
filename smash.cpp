@@ -57,7 +57,8 @@ int main(int argc, char *argv[])
                                                {"diff",new difCOMMAND},
                                                {"jobs", new JobsCommand},
                                                {"kill", new KillCommand},
-                                               {"fg", new FgCommand},
+                                               {"fg", new ContCommand(ContType::FG)},
+                                               {"bg", new ContCommand(ContType::BG)},
                                                {"quit", new quitCOMMAND}
     }; // built in command map
     Terminal term(commands);   // generate terminal
