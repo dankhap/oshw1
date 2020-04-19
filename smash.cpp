@@ -62,7 +62,7 @@ int main(int argc, char *argv[])
                                                {"jobs", new JobsCommand},
                                                {"kill", new KillCommand},
                                                {"fg", new FgCommand},
-                                              // {"quit",new quitCOMMAND}
+                                               {"quit", new quitCOMMAND}
     }; // built in command map
     Terminal term(commands);   // generate terminal
     term.run(); // run it
