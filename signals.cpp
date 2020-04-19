@@ -3,11 +3,31 @@
 //
 
 #include <iostream>
+#include <unistd.h>
 #include "signals.h"
+#include "State.h"
 
-void INT_sig_handler(int sig_num){
-    std::cout<<"control c is press ... handl"<<std::endl;
+void SignalHandler::INT_handler() {
+    std::cout<<"sending control c signal to process"<<std::endl;
+    SignalHandler& s = getInstance();
+    if(s.stateInstance->fg_pid == -1)return;
+    kill(s.stateInstance->fg_pid, SIGINT);
+
+
 }
-void STP_sig_handler(int sig_num){
-    std::cout<<"control z is press ... handl"<<std::endl;
+
+void SignalHandler::STP_handler() {
+    std::cout<<"sending control z signal to process"<<std::endl;
+    SignalHandler& s = getInstance();
+    if(s.stateInstance->fg_pid == -1)return;
+    Job j;
+    j.pid  = s.stateInstance->fg_pid;
+    j.name = s.stateInstance->cur_command;
+    j.stopped = true;
+    j.time_in = time(nullptr);
+    s.stateInstance->p_state.insert({j.pid,j});
+    s.stateInstance->cur_command = {};
+    s.stateInstance->fg_pid      = -1;
+
+
 }

@@ -6,9 +6,28 @@
 #define SMASH_SIGNALS_H
 
 #include <signal.h>
+#include "Terminal.h"
+#include "State.h"
 
-void INT_sig_handler(int sig_num);
-void STP_sig_handler(int sig_num);
+class SignalHandler{
+private:
+    SignalHandler(){};
+
+public:
+    SignalHandler(SignalHandler& s) = delete;
+    void operator=(SignalHandler& s) = delete;
+    static SignalHandler& getInstance(){
+        static SignalHandler instance;
+        return instance;
+    }
+
+    ~SignalHandler() = default;
+    static void INT_handler();
+    static void STP_handler();
+    State* stateInstance;
+
+
+};
 
 
 

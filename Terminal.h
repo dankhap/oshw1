@@ -9,9 +9,11 @@
 #include <string>
 #include "Command.h"
 #include "State.h"
-//#include "signals.h"
+
 using std::map;
 using std::string ;
+
+
 
 class Terminal
 {
@@ -21,15 +23,17 @@ private:
 
     bool is_path_valid(const string&);
 
-    //
 public:
     explicit  Terminal(std::map<string,Command*> );
       ~Terminal() = default;
     void run();
     pid_t run_app(vector<string> tokens);
-    void signal_handler();
+    State& stateGetter();
+
 
 
 };
+
+
 
 #endif //OSHW1_TERMINAL_H

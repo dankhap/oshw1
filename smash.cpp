@@ -40,12 +40,7 @@ using std::map;
 //**************************************************************************************
 int main(int argc, char *argv[])
 {
-    if(signal(SIGTSTP , STP_sig_handler )==SIG_ERR) {
-        perror("smash error: failed to set ctrl-Z handler");
-    }
-    if(signal(SIGINT , INT_sig_handler)==SIG_ERR) {
-        perror("smash error: failed to set ctrl-C handler");
-    }
+
 
 
 
@@ -60,7 +55,21 @@ int main(int argc, char *argv[])
                                                {"fg", new FgCommand},
                                                {"quit", new quitCOMMAND}
     }; // built in command map
-    Terminal term(commands);   // generate terminal
+
+    Terminal term(commands); // generate terminal
+    SignalHandler& sig = SignalHandler::getInstance();
+    sig.stateInstance = &term.stateGetter();
+
+
+
+    if(signal(SIGTSTP , reinterpret_cast<__sighandler_t>(sig.STP_handler)) == SIG_ERR) {
+        perror("smash error: failed to set ctrl-Z handler");
+    }
+    if(signal(SIGINT , reinterpret_cast<__sighandler_t>(sig.INT_handler)) == SIG_ERR) {
+        perror("smash error: failed to set ctrl-C handler");
+    }
+
+
     term.run(); // run it
 
     return 0;

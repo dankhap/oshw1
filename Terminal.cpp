@@ -11,6 +11,7 @@
 #include <algorithm>
 #include "Terminal.h"
 
+
 #define MAXARGS 20
 #define MAX_LINE_SIZE 80
 using namespace std;
@@ -19,11 +20,11 @@ using namespace std;
 Terminal::Terminal(std::map<string,Command*> com):commands(std::move(com))
 {
 
-
 }
 /*Run function, takes input from user, stores in vector of strings for argument(cast from char to string (problem?)
  * */
 void Terminal::run(){ // git hub test
+
     string cl;
 
     while(!terminal_state.exit_request){
@@ -93,6 +94,8 @@ pid_t Terminal::run_app(vector<string> tokens) {
             Job j(pid, start, exe_name);
             this->terminal_state.p_state[pid] = j;
         } else{
+            terminal_state.cur_command = exe_name;
+            terminal_state.fg_pid = pid;
             wait(&res);
         }
     }
@@ -100,16 +103,12 @@ pid_t Terminal::run_app(vector<string> tokens) {
     return 0;
 }
 
-void Terminal::signal_handler() {
-  /*  struct sigaction act1{};
-    act1.sa_handler = &INT_sig_handler;
-
-    struct sigaction act2{};
-    act2.sa_handler = &STP_sig_handler;
-
-    //sigaction(SIGINT,)*/
-
+State& Terminal::stateGetter() {
+    return this->terminal_state;
 }
+
+
+
 
 /*
 /usr/bin/gnome-calculator &
