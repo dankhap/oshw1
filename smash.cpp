@@ -25,8 +25,10 @@ main file. This file contains the main function of smash
 #include "JobsCommand.h"
 #include "KillCommand.h"
 #include "FgCommand.h"
-
-#define MAX_LINE_SIZE 81
+#include "signal.h"
+#include "signals.h"
+//
+#define MAX_LINE_SIZE 80
 #define MAXARGS 20
 
 using std::map;
@@ -38,6 +40,14 @@ using std::map;
 //**************************************************************************************
 int main(int argc, char *argv[])
 {
+    if(signal(SIGTSTP , STP_sig_handler )==SIG_ERR) {
+        perror("smash error: failed to set ctrl-Z handler");
+    }
+    if(signal(SIGINT , INT_sig_handler)==SIG_ERR) {
+        perror("smash error: failed to set ctrl-C handler");
+    }
+
+
 
     std::map<std::string,Command*> commands = {{"pwd",new PWDcommand},
                                                {"cd", new cdCommand},
