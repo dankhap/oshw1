@@ -101,13 +101,13 @@ pid_t Terminal::run_app(vector<string> tokens) {
 }
 
 void Terminal::signal_handler() {
-    struct sigaction act1{};
+  /*  struct sigaction act1{};
     act1.sa_handler = &INT_sig_handler;
 
     struct sigaction act2{};
     act2.sa_handler = &STP_sig_handler;
 
-    //sigaction(SIGINT,)
+    //sigaction(SIGINT,)*/
 
 }
 

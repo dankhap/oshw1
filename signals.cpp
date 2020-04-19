@@ -5,11 +5,9 @@
 #include <iostream>
 #include "signals.h"
 
-/*void sig_handler(int signum){
-    if(signum == SIGINT){
-        std::cout<<"control c is press ... handl"<<std::endl;
-    }
-    if(signum == SIGTSTP){
-        std::cout<<"control z is press ... handl"<<std::endl;
-    }
-}*/
+void INT_sig_handler(int sig_num){
+    std::cout<<"control c is press ... handl"<<std::endl;
+}
+void STP_sig_handler(int sig_num){
+    std::cout<<"control z is press ... handl"<<std::endl;
+}

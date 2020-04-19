@@ -7,7 +7,10 @@
 
 #include <signal.h>
 
-void sig_handler(int sig_num);
+void INT_sig_handler(int sig_num);
+void STP_sig_handler(int sig_num);
+
+
 
 
 #endif //SMASH_SIGNALS_H
