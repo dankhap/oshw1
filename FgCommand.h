@@ -7,13 +7,15 @@
 
 
 #include "Command.h"
-
-class FgCommand : public Command{
+enum class ContType { BG, FG};
+class ContCommand : public Command{
 private:
+    ContType type;
     static unsigned int find_latest_job_idx(const map<int, Job>& map);
-    static void move_to_fg(const Job &j);
+    static void continue_job(const Job &j, bool wait);
 
 public:
+    ContCommand(ContType type);
     void  execute(std::vector<string> args,State& S) override;
 
 };
