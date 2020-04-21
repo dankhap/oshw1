@@ -1,0 +1,16 @@
+infloop.c
+(@)^z
+jobs
+infloop2.c
+(@)^z
+fg
+(@)^z
+jobs
+fg 2
+(@)^c
+jobs
+fg
+(@)^c
+infloop.c&
+jobs
+(@)^c
