@@ -14,12 +14,13 @@
    std::ofstream dest;
    source.open(args[1],std::fstream::in);
      if(!source.good()){
-         perror("No such file");
+         perror(nullptr);
+         std::cout.flush();
          return;
      }
    dest.open(args[2],std::ostream::out);
    if(!dest.good()){
-       perror("Couldnt open new file");
+       perror(nullptr);
        source.close();
        return;
    }

@@ -14,12 +14,12 @@ void difCOMMAND::execute(std::vector<string> args, State &S) {
     std::fstream dest;
     source.open(args[1],std::fstream::in);
     if(!source.good()){
-        perror("No file args[1]");
+        perror(nullptr);
         return;
     }
     dest.open(args[2],std::fstream::in);
     if(!dest.good()){
-        perror("No file args[2]");
+        perror(nullptr);
         source.close();
         return;
     }

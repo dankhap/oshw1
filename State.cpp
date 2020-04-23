@@ -11,7 +11,7 @@ State::State() : ilegal_command(false),
     cur_dir(get_current_dir_name()),
     prev_dir(get_current_dir_name())
     {
-    this->fg_pid = -1;
+
 
 }
 

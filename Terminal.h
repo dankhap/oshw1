@@ -27,6 +27,7 @@ public:
     explicit  Terminal(std::map<string,Command*> );
       ~Terminal() = default;
     void run();
+    void printBuildIn(const std::vector<string>& args);
     pid_t run_app(vector<string> tokens);
     State& stateGetter();
 

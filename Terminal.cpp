@@ -16,9 +16,11 @@
 #define MAX_LINE_SIZE 80
 using namespace std;
 
+
 /*Terminal class initializer, very basic just for the beginning  */
 Terminal::Terminal(std::map<string,Command*> com):commands(std::move(com))
 {
+
 
 }
 /*Run function, takes input from user, stores in vector of strings for argument(cast from char to string (problem?)
@@ -42,8 +44,10 @@ void Terminal::run(){ // git hub test
         if(commands.count(args.front())){  // if command is built in command (maybe better way the to use .count
             commands[args.front()]->execute(args,terminal_state);
             if(terminal_state.ilegal_command){
-                std::cout<<"Ilegal command, try again"<<std::endl;
+                std::cout<<"smash error: > ";
+                printBuildIn(args);
                 terminal_state.ilegal_command = false;
+                if(terminal_state.exit_request) terminal_state.exit_request= false;
             }
         } else(run_app(args));
 
@@ -59,7 +63,6 @@ void Terminal::run(){ // git hub test
                 // handle quit command
         }
 
-
     }
 }
 
@@ -69,6 +72,7 @@ const char *convert(const std::string & s)
 }
 
 pid_t Terminal::run_app(vector<string> tokens) {
+    extern int fg_pid;
     if(tokens.empty()){
         return 0;
     }
@@ -84,6 +88,8 @@ pid_t Terminal::run_app(vector<string> tokens) {
     int pid = fork();
     if(pid == 0){
         setpgrp(); // Change group id for child process so signals wont be sent to all, and only main process will catch signal.
+
+        fg_pid =(int)getpid();
         if(execv(exe_name.c_str(), (char**)&vc[1]) == -1) {
             perror(nullptr);
             exit(errno);
@@ -95,7 +101,6 @@ pid_t Terminal::run_app(vector<string> tokens) {
             this->terminal_state.p_state[pid] = j;
         } else{
             terminal_state.cur_command = exe_name;
-            terminal_state.fg_pid = pid;
             wait(&res);
         }
     }
@@ -107,7 +112,13 @@ State& Terminal::stateGetter() {
     return this->terminal_state;
 }
 
-
+void Terminal::printBuildIn(const std::vector<string>& args) {
+    std::cout<<" \"";
+    for(auto const& i:args){
+        std::cout<<i<<" ";
+    }
+    std::cout<<"\""<<"\n";
+}
 
 
 /*

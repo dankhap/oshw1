@@ -6,28 +6,33 @@
 #include <unistd.h>
 #include "signals.h"
 #include "State.h"
+#include "Terminal.h"
+
 
 void SignalHandler::INT_handler() {
+    extern int fg_pid;
     std::cout<<"sending control c signal to process"<<std::endl;
-    SignalHandler& s = getInstance();
-    if(s.stateInstance->fg_pid == -1)return;
-    kill(s.stateInstance->fg_pid, SIGINT);
+    //SignalHandler& s = getInstance();
+    if(fg_pid == -1)return;
+    kill(fg_pid, SIGINT);
 
 
 }
 
 void SignalHandler::STP_handler() {
+    extern int fg_pid;
     std::cout<<"sending control z signal to process"<<std::endl;
     SignalHandler& s = getInstance();
-    if(s.stateInstance->fg_pid == -1)return;
+    if(fg_pid == -1)return;
+    kill(fg_pid, SIGTSTP);
     Job j;
-    j.pid  = s.stateInstance->fg_pid;
+    j.pid  = fg_pid;
     j.name = s.stateInstance->cur_command;
     j.stopped = true;
     j.time_in = time(nullptr);
     s.stateInstance->p_state.insert({j.pid,j});
     s.stateInstance->cur_command = {};
-    s.stateInstance->fg_pid      = -1;
+    fg_pid      = -1;
 
 
 }
