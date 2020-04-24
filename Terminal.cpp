@@ -47,7 +47,7 @@ void Terminal::run(){ // git hub test
                 std::cout<<"smash error: > ";
                 printBuildIn(args);
                 terminal_state.ilegal_command = false;
-                if(terminal_state.exit_request) terminal_state.exit_request= false;
+                terminal_state.exit_request= false;
             }
         } else(run_app(args));
 
@@ -72,7 +72,6 @@ const char *convert(const std::string & s)
 }
 
 pid_t Terminal::run_app(vector<string> tokens) {
-    extern int fg_pid;
     if(tokens.empty()){
         return 0;
     }
@@ -88,8 +87,6 @@ pid_t Terminal::run_app(vector<string> tokens) {
     int pid = fork();
     if(pid == 0){
         setpgrp(); // Change group id for child process so signals wont be sent to all, and only main process will catch signal.
-
-        fg_pid =(int)getpid();
         if(execv(exe_name.c_str(), (char**)&vc[1]) == -1) {
             perror(nullptr);
             exit(errno);
@@ -100,6 +97,7 @@ pid_t Terminal::run_app(vector<string> tokens) {
             Job j(pid, start, exe_name);
             this->terminal_state.p_state[pid] = j;
         } else{
+            terminal_state.fg_pid = pid;
             terminal_state.cur_command = exe_name;
             wait(&res);
         }

@@ -33,7 +33,7 @@ main file. This file contains the main function of smash
 
 using std::map;
 
-int fg_pid=-1 ;
+
 //**************************************************************************************
 // function name: main
 // Description: main function of smash. get command from user and calls command functions
