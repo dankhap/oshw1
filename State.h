@@ -27,7 +27,7 @@ class State
 {
 private:
 public:
-    int fg_pid;
+    int fg_pid; // for signal handler
     string cur_command;
     bool ilegal_command;
     bool exit_request;

@@ -17,13 +17,14 @@ State::State() : ilegal_command(false),
 
 
 
-Job::Job(int id, std::time_t time, std::string n) :pid(id),time_in(time), name(std::move(n)){
+Job::Job(int id, std::time_t time, std::string n) :pid(id),time_in(time), name(std::move(n)),stopped(false){ // defaulted at stopped bug
 
 }
 
 Job::Job() {
     pid = 0;
     time_in = 0;
+    stopped = false; // defaulted at stopped bug
 }
 
 void State::refresh_jobs() {

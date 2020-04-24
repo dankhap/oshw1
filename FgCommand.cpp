@@ -5,6 +5,7 @@
 #include <iostream>
 #include <wait.h>
 #include "FgCommand.h"
+#include "signals.h"
 
 ContCommand::ContCommand(ContType type) : type(type) {}
 
@@ -65,9 +66,12 @@ void ContCommand::continue_job(const Job & j, bool wait) {
     }
     std::cout << j.name << std::endl;
     kill(j.pid, SIGCONT);
+    std::cout<<"smash > signal SIGCONT was sent to pid "<<j.pid<<"\n";
     int status = 0;
     if(wait){
-        waitpid(j.pid, &status, 0);
+        SignalHandler& sig = SignalHandler::getInstance();
+        sig.stateInstance->fg_pid = j.pid;    // for signal handler if signal is sent to this process
+        waitpid(j.pid, &status, WUNTRACED);  // to catch signal properly
     }
     
 }

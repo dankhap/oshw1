@@ -97,9 +97,9 @@ pid_t Terminal::run_app(vector<string> tokens) {
             Job j(pid, start, exe_name);
             this->terminal_state.p_state[pid] = j;
         } else{
-            terminal_state.fg_pid = pid;
+            terminal_state.fg_pid = pid;  // holds fg process pid for signal handler
             terminal_state.cur_command = exe_name;
-            wait(&res);
+            waitpid(-1,&res,WUNTRACED); // changed to waitpid with WUNTRACED because before it didnt catch state change after SIGSTOP was sent from keyborad
         }
     }
 
