@@ -30,5 +30,6 @@
     }
     source.close();
     dest.close();
+    std::cout<<args[1]<<" had been copied to "<<args[2]<<std::endl;
 
 }
