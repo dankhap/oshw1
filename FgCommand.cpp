@@ -75,7 +75,7 @@ void ContCommand::continue_job(const Job & j, bool wait) {
     }
     std::cout << j.name << std::endl;
     kill(j.pid, SIGCONT);
-    std::cout<<"smash > signal SIGCONT was sent to pid "<<j.pid<< std::endl;
+    std::cout << "smash > signal SIGCONT was sent to pid " << j.pid<< std::endl;
     int status = 0;
     if(wait){
         SignalHandler& sig = SignalHandler::getInstance();

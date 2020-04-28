@@ -19,8 +19,18 @@ void KillCommand::execute(std::vector<string> args, State &s) {
         s.ilegal_command = true;
         return;
     }
-    int pid = std::stoi(args[2]);
-    int sig = std::stoi(args[1].erase(0, 1));
+
+    int pid = 0;
+    int sig = 0;
+
+    try {
+        pid = std::stoi(args[2]);
+        sig = std::stoi(args[1].erase(0, 1));
+    }catch (const std::invalid_argument &e){
+        s.ilegal_command = true;
+        return;
+    }
+    
     if(!s.p_state.count(pid)) {
         std::cout << "smash error: > kill " << pid << "- job does not exist" << std::endl;
         return;
