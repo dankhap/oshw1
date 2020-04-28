@@ -8,8 +8,6 @@
 #include <vector>
 #include "State.h"
 
-using std::vector;
-using std::string;
 /*
  * param string f the argumetns and the state of the terminal
  * Checks if command is legal, if so executes the path change and edits the paramaters.

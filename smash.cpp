@@ -70,7 +70,6 @@ int main(int argc, char *argv[])
         perror("smash error: failed to set ctrl-C handler");
     }
 
-
     term.run(); // run it
 
     return 0;

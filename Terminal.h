@@ -21,14 +21,14 @@ private:
     std::map<string ,Command*> commands;
     State terminal_state;
 
-    bool is_path_valid(const string&);
+    void push_to_history(const std::vector<string>&);
 
 public:
     explicit  Terminal(std::map<string,Command*> );
       ~Terminal() = default;
     void run();
     void printBuildIn(const std::vector<string>& args);
-    pid_t run_app(vector<string> tokens);
+    pid_t run_app(std::vector<string> tokens);
     State& stateGetter();
 
 

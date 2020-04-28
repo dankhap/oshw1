@@ -23,6 +23,15 @@ Terminal::Terminal(std::map<string,Command*> com):commands(std::move(com))
 
 
 }
+
+void Terminal::printBuildIn(const std::vector<string>& args) {
+    std::cout<<" \"";
+    for(auto const& i:args){
+        std::cout<<i<<" ";
+    }
+    std::cout<<"\""<<"\n";
+}
+
 /*Run function, takes input from user, stores in vector of strings for argument(cast from char to string (problem?)
  * */
 void Terminal::run(){ // git hub test
@@ -50,14 +59,10 @@ void Terminal::run(){ // git hub test
                 terminal_state.exit_request= false;
             }
         } else(run_app(args));
-
+        
+        push_to_history(args);
         // handle saving the commands;
-        if(terminal_state.history.size()<50){
-            terminal_state.history.push_back(args);
-        } else{
-            terminal_state.history.pop_back();
-            terminal_state.history.push_back(args);
-            }
+   
         if(terminal_state.exit_request ){
             exit(0);
                 // handle quit command
@@ -69,6 +74,14 @@ void Terminal::run(){ // git hub test
 const char *convert(const std::string & s)
 {
     return s.c_str();
+}
+void Terminal::push_to_history(const vector<string>& args) {
+    if(terminal_state.history.size()<50){
+        terminal_state.history.push_back(args);
+    } else{
+        terminal_state.history.pop_back();
+        terminal_state.history.push_back(args);
+    }
 }
 
 pid_t Terminal::run_app(vector<string> tokens) {
@@ -110,13 +123,7 @@ State& Terminal::stateGetter() {
     return this->terminal_state;
 }
 
-void Terminal::printBuildIn(const std::vector<string>& args) {
-    std::cout<<" \"";
-    for(auto const& i:args){
-        std::cout<<i<<" ";
-    }
-    std::cout<<"\""<<"\n";
-}
+
 
 
 /*
