@@ -1,0 +1,7 @@
+./infloop.out
+@z
+./infloop2.out
+@z
+fg 2
+quit
+

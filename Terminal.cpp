@@ -27,9 +27,9 @@ Terminal::Terminal(std::map<string,Command*> com):commands(std::move(com))
 void Terminal::printBuildIn(const std::vector<string>& args) {
     std::cout<<" \"";
     for(auto const& i:args){
-        std::cout<<i<<" ";
+        std::cout << i << " ";
     }
-    std::cout<<"\""<<"\n";
+    std::cout<< "\"" << std::endl;
 }
 
 /*Run function, takes input from user, stores in vector of strings for argument(cast from char to string (problem?)
@@ -110,9 +110,12 @@ pid_t Terminal::run_app(vector<string> tokens) {
             Job j(pid, start, exe_name);
             this->terminal_state.p_state[pid] = j;
         } else{
-            terminal_state.fg_pid = pid;  // holds fg process pid for signal handler
+            // holds fg process pid for signal handler
+            terminal_state.fg_pid = pid;  
             terminal_state.cur_command = exe_name;
-            waitpid(-1,&res,WUNTRACED); // changed to waitpid with WUNTRACED because before it didnt catch state change after SIGSTOP was sent from keyborad
+            // changed to waitpid with WUNTRACED because before it 
+            // didn't catch state change after SIGSTOP was sent from keyboard
+            waitpid(-1, &res, WUNTRACED); 
         }
     }
 

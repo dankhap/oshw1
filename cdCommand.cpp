@@ -26,5 +26,5 @@ void cdCommand::execute(std::vector<string> args, State& S) {
             S.cur_dir = get_current_dir_name();
             return;
         }
-        std::cout<<"smash error: > \" "<<args[1]<<" \" - path not found"<<std::endl;
+        std::cerr<<"smash error: > \" "<<args[1]<<" \" - path not found"<<std::endl;
 }

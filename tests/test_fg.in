@@ -3,14 +3,6 @@
 jobs
 ./infloop2.out
 @z
-fg
-@z
 jobs
 fg 2
-@c
-jobs
-fg
-@c
-./infloop.out &
-jobs
-@c
+quit
