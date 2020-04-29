@@ -1,7 +1,4 @@
-./infloop.out
-@z
+[1] ./infloop.out : # # secs (Stopped)
+[1] ./infloop.out : # # secs (Stopped)
+[2] ./infloop2.out : # # secs (Stopped)
 ./infloop2.out
-@z
-fg 2
-quit
-

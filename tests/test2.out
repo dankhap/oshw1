@@ -1,14 +1,14 @@
-smash > smash error: >  "pwd d "
-smash > smash error: > " somePath " - path not found
-smash > smash error: >  "cd "
-smash > smash error: >  "history wrong command "
+smash error: >  "pwd d "
+smash error: > " somePath " - path not found
+smash error: >  "cd "
+smash error: >  "history wrong command "
 No such file or directory
-smash > smash > smash error: >  "jobs 2 "
-smash > smash error: >  "jobs 2332 sdfsdkmfs ;aam "
-smash > smash error: >  "showpid ;;;sdada sao9 "
-smash > smash error: >  "kill -SIGINT 2 "
-smash > smash error: >  "fg 211 sadad k "
-smash > smash error: >  "bg 22pilotsbjskd ss "
-smash > smash error: >  "quit jks9 "
+smash error: >  "jobs 2 "
+smash error: >  "jobs 2332 sdfsdkmfs ;aam "
+smash error: >  "showpid ;;;sdada sao9 "
+smash error: >  "kill -SIGINT 2 "
+smash error: >  "fg 211 sadad k "
+smash error: >  "bg 22pilotsbjskd ss "
+smash error: >  "quit jks9 "
 No such file or directory
 No such file or directory

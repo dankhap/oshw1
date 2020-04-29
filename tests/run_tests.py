@@ -5,6 +5,8 @@ from os import path
 from time import sleep
 import select
 import sys
+import re
+
 
 builtins = [
 "pwd",
@@ -19,6 +21,8 @@ builtins = [
 "bg",
 "quit"]
 prompt = 'smash > '
+
+
 def load_test_list():
     mypath = '.'
     res = []
@@ -43,21 +47,6 @@ def timed_line_read(stream, tries):
         time_limit -= 1
     return line
 
-def timed_full_read(stream, tries):
-    had_error = False
-    time_limit = tries
-    line = ""
-    poll_obj = select.poll()
-    poll_obj.register(stream, select.POLLIN)   
-    while not had_error and time_limit > 0:
-        poll_result = poll_obj.poll(0)
-        if poll_result:
-            line = stream.read(100)
-            had_error = True
-        sleep(0.1)
-        time_limit -= 1
-    return line
-
 
 def read_built_in(ps, is_blocked):
     output_lines = []
@@ -73,23 +62,27 @@ def read_built_in(ps, is_blocked):
             next = ps.stdout.read(len(prompt))
     else:
         output_lines.append(err_line)
-    output_lines = [x for x in output_lines if x]    
+    output_lines = [x for x in output_lines if x]  
+    if is_blocked:
+        sleep(0.1)  
     return output_lines
 
-def read_command(ps):
-    output_lines = []
-    err_line = timed_line_read(ps.stderr, 2)
-    if not err_line:
-        out_line = ps.stdout.read(len(prompt))
-        res = ""
-        while out_line:
-            out_line = timed_line_read(ps.stdout, 1)
-            output_lines.append(out_line)
-            res += out_line
-    else:
-        output_lines.append(err_line)
-    output_lines = [x for x in output_lines if x]    
-    return output_lines
+
+def compare_outputs(expected, output):
+    if len(expected) != len(output):
+        return False
+
+    lines = zip(expected, output)
+    num_placeholder = ' # '
+    for i, (expect, present) in enumerate(lines):
+        if num_placeholder in expect:
+            present = re.sub(" -*\d+", " #", present)
+        if expect != present:
+            print(f"missmatch at output line {i}")
+            return False
+    
+    return True
+
 
 def run_test(input, output_file):
     with open(input, 'r') as input_file:
@@ -121,13 +114,14 @@ def run_test(input, output_file):
         cmd_out = read_built_in(ps, blocking)
         output_lines += cmd_out
 
+    output_lines = [x.replace(prompt, '') for x in output_lines]
 
     with open(output_file+'.o', 'w+') as f:
         f.writelines(output_lines)
 
     with open(output_file, 'r') as out:
         out = out.readlines()
-    return out == output_lines
+    return compare_outputs(out, output_lines)
 
 if __name__ == "__main__":
     # sys.argv.append('test_fg.in')
