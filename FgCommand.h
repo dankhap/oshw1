@@ -11,7 +11,6 @@ enum class ContType { BG, FG};
 class ContCommand : public Command{
 private:
     ContType type;
-    static unsigned int find_latest_job_idx(const std::vector<Job>& map);
     static void continue_job( Job& j, bool wait);
 
 public:
