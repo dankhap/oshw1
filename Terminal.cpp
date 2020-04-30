@@ -101,7 +101,7 @@ pid_t Terminal::run_app(vector<string> tokens) {
     int pid = fork();
     if(pid == 0){
         setpgrp(); // Change group id for child process so signals wont be sent to all, and only main process will catch signal.
-        if(execvp(exe_name.c_str(), (char**)&vc[0]) == -1) {
+        if(execv(exe_name.c_str(), (char**)&vc[0]) == -1) {
             perror(nullptr);
             exit(errno);
         }
