@@ -10,7 +10,7 @@ run_tests.py can be run with one arguemnt, which is the filename of an '.in' tes
 In this way you run only this specific test. 
 Otherwise all '.in' files in the same directory are run squentialy.
 
-# Sepcial input
+## Sepcial input
 ctrl+c and ctrl+z can be simulated in the '.in' file using @z and @c in a new line.
 Waiting is done by @wait<number> where <number> is in seconds.
 
