@@ -32,6 +32,6 @@ using std::string;
     }
     source.close();
     dest.close();
-    std::cout<<args[1]<<" had been copied to "<<args[2]<<std::endl;
+    std::cout<<args[1]<<" has been copied to "<<args[2]<<std::endl;
 
 }
