@@ -16,5 +16,5 @@ Waiting is done by @wait<number> where <number> is in seconds.
 
 When expecting some unknown number in the output, you can enter # in the '.out' file (example in test_fg.out)
 
-# Knwon bugs
+## Knwon bugs
 when starting an application in the background (using &) the tester looses output stream so this cannot be tested, but you can always run normally and then @z in a new line, and then bg.
