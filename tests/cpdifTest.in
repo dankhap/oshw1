@@ -1,0 +1,5 @@
+cp textFile.txt testOut.txt
+diff textFile.txt testOut.txt
+diff textFile.txt DifTextFile.txt
+cp nFile no
+

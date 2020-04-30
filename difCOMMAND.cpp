@@ -30,7 +30,7 @@ void difCOMMAND::execute(std::vector<string> args, State &S) {
         return;
     }
     while(getline(source,line1) && getline(dest,line2)){
-        if(line1.compare(line2)){
+        if(line1 != line2){
             std::cout<<"1"<<std::endl;
             source.close();
             dest.close();

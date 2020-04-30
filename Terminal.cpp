@@ -129,7 +129,7 @@ State& Terminal::stateGetter() {
 Terminal::~Terminal() {
     for(auto& it : commands){
         delete it.second;
-        
+
     }
 }
 
