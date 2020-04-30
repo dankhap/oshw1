@@ -14,26 +14,28 @@ void ContCommand::execute(std::vector<string> args, State &s) {
         s.ilegal_command = true;
         return;
     }
-    unsigned int p_idx = -1;
-    if(args.size() == 2)
+    unsigned int p_idx = 1;
+    if(args.size() == 2) {
         try {
             p_idx = std::stoi(args[1]);
-        }catch (const std::invalid_argument &e){
+        } catch (const std::invalid_argument &e) {
             s.ilegal_command = true;
             return;
         }
-    if((int)p_idx > (int)s.p_state.size()){
-        std::cerr << "no such job" << std::endl;
+    } else {
+        p_idx = find_latest_job_idx(s.p_state) + 1;
+    }
+    if(s.p_state.empty()){
+        std::cerr << "no active jobs" << std::endl;
         return;
     }
+
     s.refresh_jobs();
-    if((int)p_idx == -1){
-        p_idx = find_latest_job_idx(s.p_state);
-    }
-    if((int)p_idx == -1){
+    if((int)p_idx > (int)s.p_state.size() or (int)p_idx < 1){
         std::cerr << "no such job" << std::endl;
         return;
     }
+
     Job* j;
     unsigned int i = 1;
 
