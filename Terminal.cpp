@@ -126,6 +126,13 @@ State& Terminal::stateGetter() {
     return this->terminal_state;
 }
 
+Terminal::~Terminal() {
+    for(int i = 0; i<commands.size();i++){
+        delete commands[i];
+    }
+
+}
+
 
 
 
