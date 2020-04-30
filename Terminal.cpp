@@ -126,6 +126,12 @@ State& Terminal::stateGetter() {
     return this->terminal_state;
 }
 
+Terminal::~Terminal() {
+    for(auto& it : commands){
+        delete it.second;
+    }
+}
+
 
 
 

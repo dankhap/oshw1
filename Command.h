@@ -18,7 +18,7 @@ class  Command
 private:
 public:
     Command() = default;
-    ~Command() = default;
+    virtual ~Command() = default;
 
     virtual void  execute(std::vector<std::string>,State&) {
         //vitrual func
