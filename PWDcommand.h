@@ -8,7 +8,6 @@
 
 #include "State.h"
 #include "Command.h"
-#include <stdio.h>
 #include <iostream>
 
 using namespace std;
@@ -17,7 +16,7 @@ using namespace std;
 class PWDcommand : public Command {
 private:
 public:
-    virtual void  execute(std::vector<string> args,State&) override;
+    void execute(std::vector<string> args,State&) override;
 
 };
 #endif //OSHW1_PWDCOMMAND_H

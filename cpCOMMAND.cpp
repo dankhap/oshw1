@@ -3,6 +3,8 @@
 //
 
 #include "cpCOMMAND.h"
+#include <iostream>
+#include <fstream>
 
 using std::string;
 

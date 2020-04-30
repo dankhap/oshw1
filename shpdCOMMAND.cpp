@@ -1,7 +1,8 @@
 //
 // Created by os on 11.4.2020.
 //
-
+#include <iostream>
+#include <unistd.h>
 #include "shpdCOMMAND.h"
 
 void shpdCOMMAND::execute(std::vector<std::string> args, State &S) {
