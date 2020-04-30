@@ -4,7 +4,10 @@
 
 #include <unistd.h>
 #include <wait.h>
+#include <algorithm>
 #include "State.h"
+
+using std::vector;
 
 State::State() : ilegal_command(false),
     exit_request(false),
@@ -30,18 +33,17 @@ Job::Job() {
 void State::refresh_jobs() {
     std::vector<int> dead_jobs;
     int status = 0;
-    for (std::pair<int, Job> job : p_state) {
-        pid_t result = waitpid(job.second.pid, &status, WUNTRACED|WNOHANG);
+    for (auto &job : p_state) {
+        pid_t result = waitpid(job.pid, &status, WUNTRACED|WNOHANG);
         if(result == 0){
             continue;
         }
         if (result == -1 || WIFEXITED(status) || WIFSIGNALED(status)) {
-            dead_jobs.push_back(job.second.pid);
+            dead_jobs.push_back(job.pid);
             continue;
         }
-        p_state[job.first].stopped = WIFSTOPPED(status);
+        p_state[job.pid].stopped = WIFSTOPPED(status);
     }
-    for (int pid: dead_jobs) {
-        p_state.erase(pid);
-    }
+    auto predicate = [&](const Job &v) { return find(dead_jobs.begin(), dead_jobs.end(), v.pid) == dead_jobs.end();};
+    p_state.erase(std::remove_if(p_state.begin(), p_state.end(), predicate), p_state.end());
 }

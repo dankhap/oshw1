@@ -14,10 +14,10 @@ void JobsCommand::execute(std::vector<string> args, State &s) {
     }
     int i = 1; // jobs array counter bug fixed
     s.refresh_jobs();
-    for (std::pair<int, Job> job : s.p_state) {
-        string lbl = job.second.stopped ? "(Stopped)" : "";
-        double elapsed_time = difftime(job.second.time_in, time(nullptr));
-        std::cout << "[" << i << "] " << job.second.name << " : " <<  job.first <<
+    for (auto &job : s.p_state) {
+        string lbl = job.stopped ? "(Stopped)" : "";
+        double elapsed_time = difftime(job.time_in, time(nullptr));
+        std::cout << "[" << i << "] " << job.name << " : " <<  job.pid <<
             " " << elapsed_time << " secs " << lbl << std::endl;
         i++;
     }

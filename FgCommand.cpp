@@ -6,6 +6,7 @@
 #include <wait.h>
 #include "FgCommand.h"
 #include "signals.h"
+using std::vector;
 
 ContCommand::ContCommand(ContType type) : type(type) {}
 
@@ -36,18 +37,10 @@ void ContCommand::execute(std::vector<string> args, State &s) {
         return;
     }
 
-    Job* j;
-    unsigned int i = 1;
-
-    for ( auto& kv : s.p_state) {
-        if(i==p_idx)
-            j= &(kv.second);
-        i++;
-    }
-    continue_job(j, type == ContType::FG);
+    continue_job(s.p_state[p_idx - 1], type == ContType::FG);
 }
 
-unsigned int ContCommand::find_latest_job_idx(const map<int, Job>& jobs) {
+unsigned int ContCommand::find_latest_job_idx(const vector<Job>& jobs) {
     time_t t = time(nullptr);
     double diff = 0;
     int i = 0;
@@ -56,7 +49,7 @@ unsigned int ContCommand::find_latest_job_idx(const map<int, Job>& jobs) {
     //find the latest job - with the smallest time diff from now
     //return the index, not the pid
     for (const auto& kv : jobs) {
-        double d = difftime(t,kv.second.time_in);
+        double d = difftime(t,kv.time_in);
         if(diff == 0) {
             diff = d;
             latest_pidx = i;
@@ -71,20 +64,20 @@ unsigned int ContCommand::find_latest_job_idx(const map<int, Job>& jobs) {
     return latest_pidx;
 }
 
-void ContCommand::continue_job( Job*  j, bool wait) {
-    if(!wait && !j->stopped) {
+void ContCommand::continue_job( Job&  j, bool wait) {
+    if(!wait && !j.stopped) {
         std::cerr << "job is not stopped, cannot continue!" << std::endl;
         return;
     }
-    std::cout << j->name << std::endl;
-    kill(j->pid, SIGCONT);
-    std::cout << "smash > signal SIGCONT was sent to pid " << j->pid<< std::endl;
-    j->stopped = false;
+    std::cout << j.name << std::endl;
+    kill(j.pid, SIGCONT);
+    std::cout << "smash > signal SIGCONT was sent to pid " << j.pid<< std::endl;
+    j.stopped = false;
     int status = 0;
     if(wait){
         SignalHandler& sig = SignalHandler::getInstance();
-        sig.stateInstance->fg_pid = j->pid;    // for signal handler if signal is sent to this process
-        waitpid(j->pid, &status, WUNTRACED);  // to catch signal properly
+        sig.stateInstance->fg_pid = j.pid;    // for signal handler if signal is sent to this process
+        waitpid(j.pid, &status, WUNTRACED);  // to catch signal properly
     }
     
 }

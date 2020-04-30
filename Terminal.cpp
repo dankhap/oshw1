@@ -109,7 +109,7 @@ pid_t Terminal::run_app(vector<string> tokens) {
         if(is_bg){
             time_t start = time(nullptr);
             Job j(pid, start, exe_name);
-            this->terminal_state.p_state[pid] = j;
+            this->terminal_state.p_state.push_back(j);
         } else{
             // holds fg process pid for signal handler
             terminal_state.fg_pid = pid;  
@@ -130,17 +130,5 @@ State& Terminal::stateGetter() {
 Terminal::~Terminal() {
     for(auto& it : commands){
         delete it.second;
-
     }
 }
-
-
-
-
-/*
-/usr/bin/gnome-calculator &
-jobs
-kill -19
-
- */
-

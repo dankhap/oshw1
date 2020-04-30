@@ -26,6 +26,6 @@ void quitCOMMAND::execute(std::vector<string> args, State &s) {
 
 void quitCOMMAND::send_all_children(State &s, int sig) {
     for (auto& job : s.p_state) {
-        kill(job.first, sig);
+        kill(job.pid, sig);
     }
 }

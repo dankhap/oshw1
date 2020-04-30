@@ -28,8 +28,7 @@ void SignalHandler::STP_handler() {
     j.name = s.stateInstance->cur_command;
     j.stopped = true;
     j.time_in = time(nullptr);
-    s.stateInstance->p_state.insert({j.pid,j});
+    s.stateInstance->p_state.push_back(j);
     s.stateInstance->cur_command = {};
     s.stateInstance->fg_pid      = -1;
-
 }

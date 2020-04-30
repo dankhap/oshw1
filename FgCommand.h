@@ -11,11 +11,11 @@ enum class ContType { BG, FG};
 class ContCommand : public Command{
 private:
     ContType type;
-    static unsigned int find_latest_job_idx(const std::map<int, Job>& map);
-    static void continue_job( Job* j, bool wait);
+    static unsigned int find_latest_job_idx(const std::vector<Job>& map);
+    static void continue_job( Job& j, bool wait);
 
 public:
-    ContCommand(ContType type);
+    explicit ContCommand(ContType type);
     void  execute(std::vector<std::string> args,State& S) override;
 
 };

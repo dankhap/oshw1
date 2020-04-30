@@ -18,23 +18,24 @@ void KillCommand::execute(std::vector<string> args, State &s) {
         return;
     }
 
-    int pid = 0;
+    int pidx = 0;
     int sig = 0;
 
     try {
-        pid = std::stoi(args[2]);
+        pidx = std::stoi(args[2]);
         sig = std::stoi(args[1].erase(0, 1));
     }catch (const std::invalid_argument &e){
         s.ilegal_command = true;
         return;
     }
-    
-    if(!s.p_state.count(pid)) {
-        std::cout << "smash error: > kill " << pid << "- job does not exist" << std::endl;
+    s.refresh_jobs();
+    if(pidx < 1 || (unsigned int)pidx > s.p_state.size()) {
+        std::cout << "smash error: > kill " << pidx << "- job does not exist" << std::endl;
         return;
     }
-    if(kill(pid, sig) == -1) {
-        std::cout << "smash error: > kill " << pid << "- cannot send signal" << std::endl;
+
+    if(kill(s.p_state[pidx].pid, sig) == -1) {
+        std::cout << "smash error: > kill " << pidx << "- cannot send signal" << std::endl;
         return;
     }
 }

@@ -32,7 +32,7 @@ public:
     std::string cur_dir;
     std::string prev_dir;
     std::vector<std::vector<std::string>> history;
-    std::map<int, Job> p_state;
+    std::vector<Job> p_state;
     State();
 
     void refresh_jobs();
