@@ -127,10 +127,9 @@ State& Terminal::stateGetter() {
 }
 
 Terminal::~Terminal() {
-    for(int i = 0; i<commands.size();i++){
-        delete commands[i];
+    for(auto& it : commands){
+        delete it.second;
     }
-
 }
 
 
