@@ -2,6 +2,8 @@
 os hw 1
 
 # Tests usage:
+Tests should be run on an executable created by the makefile.
+
 test script is in tests/run_tests.py
 if run_tests.py is run without arguments, all files with extension '.in' are paired with a file with the same name with extension '.out'. 
 For each '.in' file, an instance of smash executable (from /smash) is started and input from '.in' is entered.
