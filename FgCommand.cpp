@@ -39,7 +39,7 @@ void ContCommand::execute(std::vector<string> args, State &s) {
 
     for ( auto& kv : s.p_state) {
         if(i==p_idx)
-            j=&kv.second;
+            j= &(kv.second);
         i++;
     }
     continue_job(j, type == ContType::FG);
