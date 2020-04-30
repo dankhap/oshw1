@@ -42,8 +42,8 @@ void State::refresh_jobs() {
             dead_jobs.push_back(job.pid);
             continue;
         }
-        p_state[job.pid].stopped = WIFSTOPPED(status);
+        job.stopped = WIFSTOPPED(status);
     }
-    auto predicate = [&](const Job &v) { return find(dead_jobs.begin(), dead_jobs.end(), v.pid) == dead_jobs.end();};
+    auto predicate = [&](const Job &v) { return find(dead_jobs.begin(), dead_jobs.end(), v.pid) != dead_jobs.end();};
     p_state.erase(std::remove_if(p_state.begin(), p_state.end(), predicate), p_state.end());
 }

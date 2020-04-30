@@ -34,7 +34,7 @@ void KillCommand::execute(std::vector<string> args, State &s) {
         return;
     }
 
-    if(kill(s.p_state[pidx].pid, sig) == -1) {
+    if(kill(s.p_state[pidx - 1].pid, sig) == -1) {
         std::cout << "smash error: > kill " << pidx << "- cannot send signal" << std::endl;
         return;
     }
