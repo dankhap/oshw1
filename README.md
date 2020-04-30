@@ -7,7 +7,7 @@ Tests should be run on an executable created by the makefile.
 test script is in tests/run_tests.py. 
 if run_tests.py is run without arguments, all files with extension '.in' are paired with a file with the same name with extension '.out'. 
 For each '.in' file, an instance of smash executable (from /smash) is started and input from '.in' is entered.
-output from each command is read sequentialy and written into same name file with extension '.out.o' and compared to '.out' file.
+output from each command is read sequentialy and written into same name file with extension '.out.o' and compared to '.out' file. When comparing input, the 'smash > ' prompt is removed, so it shouldnt apear in the '.out' file.
 run_tests.py can be run with one arguemnt, which is the filename of an '.in' test file. 
 In this way you run only this specific test. 
 Otherwise all '.in' files in the same directory are run squentialy.
