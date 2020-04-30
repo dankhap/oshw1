@@ -5,21 +5,16 @@
 #ifndef SMASH_QUITCOMMAND_H
 #define SMASH_QUITCOMMAND_H
 
-#include <iostream>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <fstream>
+#include <vector>
+#include <string>
 #include "State.h"
 #include "Command.h"
 
 class quitCOMMAND : public Command{
 private:
+    static void send_all_children(State& s, int sig);
 public:
-    virtual void  execute(std::vector<string> args,State& S) override;
+    void  execute(std::vector<std::string> args,State& S) override;
 };
 
 #endif //SMASH_QUITCOMMAND_H

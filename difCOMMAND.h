@@ -18,6 +18,6 @@
 class difCOMMAND : public Command{
 private:
 public:
-    virtual void  execute(std::vector<string> args,State& S) override;
+    virtual void  execute(std::vector<std::string> args,State& S) override;
 };
 #endif //SMASH_DIFCOMMAND_H

@@ -3,6 +3,8 @@
 //
 
 #include "difCOMMAND.h"
+using std::string;
+
 void difCOMMAND::execute(std::vector<string> args, State &S) {
     if(args.size()!=3){
         S.ilegal_command = true;

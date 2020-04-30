@@ -5,12 +5,12 @@
 #ifndef SMASH_KILLCOMMAND_H
 #define SMASH_KILLCOMMAND_H
 
-
+#include <string>
 #include "Command.h"
 
 class KillCommand : public Command{
 public:
-    void  execute(std::vector<string> args,State& S) override;
+    void  execute(std::vector<std::string> args,State& S) override;
 };
 
 

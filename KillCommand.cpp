@@ -3,9 +3,7 @@
 //
 
 #include <iostream>
-#include <csignal>
 #include <wait.h>
-#include <unistd.h>
 #include "KillCommand.h"
 
 using namespace std;

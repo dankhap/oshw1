@@ -10,7 +10,7 @@
 
 class JobsCommand : public Command{
 public:
-    void  execute(std::vector<string> args,State& S) override;
+    void  execute(std::vector<std::string> args,State& S) override;
 };
 
 

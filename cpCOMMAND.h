@@ -8,9 +8,6 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include <fstream>
 #include "State.h"
 #include "Command.h"
@@ -18,6 +15,6 @@
 class cpCOMMAND :public Command{
 private:
 public:
-    virtual void  execute(std::vector<string> args,State& S) override;
+    virtual void  execute(std::vector<std::string> args,State& S) override;
 };
 #endif //SMASH_CPCOMMAND_H

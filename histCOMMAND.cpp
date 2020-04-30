@@ -3,7 +3,9 @@
 //
 
 #include "histCOMMAND.h"
+#include <iostream>
 
+using std::string;
 
 void histCOMMAND::execute(std::vector<string> args, State &S) {
     if(args.size()>1){

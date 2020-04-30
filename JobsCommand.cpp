@@ -3,10 +3,9 @@
 //
 
 #include <iostream>
-#include <csignal>
 #include <ctime>
-#include <wait.h>
 #include "JobsCommand.h"
+using std::string;
 
 void JobsCommand::execute(std::vector<string> args, State &s) {
     if(args.size() > 1){

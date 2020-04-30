@@ -97,10 +97,11 @@ pid_t Terminal::run_app(vector<string> tokens) {
     string exe_name = tokens[0];
     vector<const char*>  vc;
     transform(tokens.begin(), tokens.end(), back_inserter(vc), convert);
+    vc.push_back((char*)nullptr);
     int pid = fork();
     if(pid == 0){
         setpgrp(); // Change group id for child process so signals wont be sent to all, and only main process will catch signal.
-        if(execv(exe_name.c_str(), (char**)&vc[1]) == -1) {
+        if(execvp(exe_name.c_str(), (char**)&vc[0]) == -1) {
             perror(nullptr);
             exit(errno);
         }

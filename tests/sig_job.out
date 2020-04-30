@@ -1,18 +1,7 @@
-
-smash > signal SIGSTP was sent to pid #
-[1] infloop.c #  # secs (Stopped)
-
-smash > signal SIGSTP was sent to pid #
-smash > signal SIGCONT was sent to pid #
-smash > signal SIGSTP was sent to pid #
-[1] infloop.c #  # secs (Stopped)
-[2] infloop2.c #  # secs (Stopped)
-smash > signal SIGCONT was sent to pid #
-[1] infloop.c #  # secs (Stopped)
-smash > signal SIGINT was sent to pid #
-[1] infloop.c #  # secs (Stopped)
-smash > signal SIGCONT was sent to pid #
-smash > signal SIGINT was sent to pid #
-
-[1] infloop.c #  # secs 
-smash > signal SIGINT was sent to pid #
+[1] ./infloop.out : 22423 0 secs (Stopped)
+./infloop.out
+[1] ./infloop.out : 22423 -1 secs (Stopped)
+[2] ./infloop2.out : 22424 -1 secs (Stopped)
+./infloop2.out
+[1] ./infloop.out : 22423 -1 secs (Stopped)
+[2] ./infloop.out : 22423 -1 secs

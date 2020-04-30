@@ -25,7 +25,6 @@ main file. This file contains the main function of smash
 #include "JobsCommand.h"
 #include "KillCommand.h"
 #include "FgCommand.h"
-#include "signal.h"
 #include "signals.h"
 //
 #define MAX_LINE_SIZE 80
@@ -40,10 +39,7 @@ using std::map;
 //**************************************************************************************
 int main(int argc, char *argv[])
 {
-
-
-
-
+    
     std::map<std::string,Command*> commands = {{"pwd",new PWDcommand},
                                                {"cd", new cdCommand},
                                                {"history",new histCOMMAND},
