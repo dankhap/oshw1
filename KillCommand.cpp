@@ -7,10 +7,14 @@
 #include "KillCommand.h"
 
 using namespace std;
-
+/**
+ * sends signal to specefic job
+ * @param args the signal to send and the job to send to
+ * @param s shell state
+ */
 void KillCommand::execute(std::vector<string> args, State &s) {
     if(args.size() != 3){
-        s.ilegal_command = true;
+        s.ilegal_command = true; // check if command is kegak
         return;
     }
     if(args[1][0] != '-'){
@@ -28,13 +32,13 @@ void KillCommand::execute(std::vector<string> args, State &s) {
         s.ilegal_command = true;
         return;
     }
-    s.refresh_jobs();
+    s.refresh_jobs();  // check if job exits
     if(pidx < 1 || (unsigned int)pidx > s.p_state.size()) {
         std::cout << "smash error: > kill " << pidx << "- job does not exist" << std::endl;
         return;
     }
 
-    if(kill(s.p_state[pidx - 1].pid, sig) == -1) {
+    if(kill(s.p_state[pidx - 1].pid, sig) == -1) {  // send signal, display result
         std::cout << "smash error: > kill " << pidx << "- cannot send signal" << std::endl;
         return;
     }

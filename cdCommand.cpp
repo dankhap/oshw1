@@ -4,8 +4,11 @@
 
 #include "cdCommand.h"
 
-
-
+/** execute function for the cd command
+ *
+ * @param args arguments attached to fucntion
+ * @param S current state of the shell
+ */
 void cdCommand::execute(std::vector<string> args, State& S) {
     const char *path = args[1].c_str();
 
@@ -23,7 +26,9 @@ void cdCommand::execute(std::vector<string> args, State& S) {
     }
         if(chdir(path) == 0){
             S.prev_dir = S.cur_dir;
-            S.cur_dir = get_current_dir_name();
+            char* cdir = get_current_dir_name();
+            S.cur_dir = string(cdir);   // memory managment
+            free(cdir);
             return;
         }
         std::cerr<<"smash error: > \" "<<args[1]<<" \" - path not found"<<std::endl;

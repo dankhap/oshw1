@@ -6,7 +6,11 @@
 #include <ctime>
 #include "JobsCommand.h"
 using std::string;
-
+/**
+ * prints out current job after refreshing done jobs
+ * @param args should be empty
+ * @param s current shell state
+ */
 void JobsCommand::execute(std::vector<string> args, State &s) {
     if(args.size() > 1){
         s.ilegal_command = true;
