@@ -32,6 +32,7 @@ void Terminal::printBuildIn(const std::vector<string>& args) {
     std::cout<< "\"" << std::endl;
 }
 
+
 /*Run function, takes input from user, stores in vector of strings for argument(cast from char to string (problem?)
  * */
 void Terminal::run(){ // git hub test
@@ -102,7 +103,6 @@ pid_t Terminal::run_app(vector<string> tokens) {
     if(pid == 0){
         setpgrp(); // Change group id for child process so signals wont be sent to all, and only main process will catch signal.
         if(execv(exe_name.c_str(), (char**)&vc[0]) == -1) {
-            std::cout<<"I am here"<<std::endl;
             perror(nullptr);
             exit(errno);
         }
@@ -111,6 +111,7 @@ pid_t Terminal::run_app(vector<string> tokens) {
             time_t start = time(nullptr);
             Job j(pid, start, exe_name);
             this->terminal_state.p_state.push_back(j);
+            usleep(100000);
         } else{
             // holds fg process pid for signal handler
             terminal_state.fg_pid = pid;  
