@@ -1,0 +1,2 @@
+infloop &  // no such command
+quit kill   // succesfull sigterm sending? like he was addes to jobs, but if you do jobs prior hes not there

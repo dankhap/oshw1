@@ -102,6 +102,7 @@ pid_t Terminal::run_app(vector<string> tokens) {
     if(pid == 0){
         setpgrp(); // Change group id for child process so signals wont be sent to all, and only main process will catch signal.
         if(execv(exe_name.c_str(), (char**)&vc[0]) == -1) {
+            std::cout<<"I am here"<<std::endl;
             perror(nullptr);
             exit(errno);
         }
