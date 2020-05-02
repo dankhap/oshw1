@@ -31,12 +31,13 @@ void quitCOMMAND::send_all_children(State &s, int sig) {
         kill(job.pid, sig);
         std::cout<<"[" << i << "] " << job.name << " - Sending SIGTERM... ";
         usleep(10000);
-        pid_t res = waitpid(job.pid, &status,WNOHANG);
+        pid_t res = waitpid(job.pid, &status, WNOHANG);
         if(!res || !WIFSIGNALED(status)){
             sleep(5);
             std::cout<< "(5 sec passed)";
-            kill(job.pid,SIGKILL);
+            kill(job.pid, SIGKILL);
             std::cout<<" Sending SIGKILL... ";
+            waitpid(job.pid, nullptr, 0);
         }
         std::cout<<"Done."<<std::endl;
         i++;
