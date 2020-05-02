@@ -2,7 +2,7 @@
 // Created by os on 12.4.2020.
 //
 
-#include <csignal>
+#include <ctime>
 #include <unistd.h>
 #include <iostream>
 #include <wait.h>
@@ -30,8 +30,9 @@ void quitCOMMAND::send_all_children(State &s, int sig) {
         int status = 0;
         kill(job.pid, sig);
         std::cout<<"[" << i << "] " << job.name << " - Sending SIGTERM... ";
-        waitpid(job.pid, &status,WNOHANG);
-        if(!WIFEXITED(status)){
+        usleep(10000);
+        pid_t res = waitpid(job.pid, &status,WNOHANG);
+        if(!res || !WIFSIGNALED(status)){
             sleep(5);
             std::cout<< "(5 sec passed)";
             kill(job.pid,SIGKILL);
