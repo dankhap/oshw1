@@ -8,7 +8,7 @@
 
 void PWDcommand:: execute(std::vector<string> args,State& s) {
     if(args.size() == 1){
-        std::cout<<State().cur_dir<<std::endl;
+        std::cout << s.cur_dir << std::endl;
         return;}
     s.ilegal_command = true;
 }

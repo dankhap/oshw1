@@ -55,14 +55,14 @@ int main(int argc, char *argv[])
 
     Terminal term(commands); // generate terminal
     SignalHandler& sig = SignalHandler::getInstance();
-    sig.stateInstance = &term.stateGetter();
+    sig.stateInstance = &term.get_state();
 
 
 
-    if(signal(SIGTSTP , reinterpret_cast<__sighandler_t>(sig.STP_handler)) == SIG_ERR) {
+    if(signal(SIGTSTP , reinterpret_cast<__sighandler_t>(SignalHandler::STP_handler)) == SIG_ERR) {
         perror("smash error: failed to set ctrl-Z handler");
     }
-    if(signal(SIGINT , reinterpret_cast<__sighandler_t>(sig.INT_handler)) == SIG_ERR) {
+    if(signal(SIGINT , reinterpret_cast<__sighandler_t>(SignalHandler::INT_handler)) == SIG_ERR) {
         perror("smash error: failed to set ctrl-C handler");
     }
 

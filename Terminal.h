@@ -29,7 +29,7 @@ public:
     void run();
     void printBuildIn(const std::vector<string>& args);
     pid_t run_app(std::vector<string> tokens);
-    State& stateGetter();
+    State& get_state();
 
 
 

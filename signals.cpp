@@ -3,10 +3,8 @@
 //
 
 #include <iostream>
-#include <unistd.h>
 #include "signals.h"
 #include "State.h"
-#include "Terminal.h"
 
 
 void SignalHandler::INT_handler() {

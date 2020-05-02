@@ -101,7 +101,9 @@ pid_t Terminal::run_app(vector<string> tokens) {
     vc.push_back((char*)nullptr);
     int pid = fork();
     if(pid == 0){
-        setpgrp(); // Change group id for child process so signals wont be sent to all, and only main process will catch signal.
+        // Change group id for child process so signals wont be sent to all,
+        // and only main process will catch signal.
+        setpgrp();
         if(execv(exe_name.c_str(), (char**)&vc[0]) == -1) {
             perror(nullptr);
             exit(errno);
@@ -125,7 +127,7 @@ pid_t Terminal::run_app(vector<string> tokens) {
     return 0;
 }
 
-State& Terminal::stateGetter() {
+State& Terminal::get_state() {
     return this->terminal_state;
 }
 
