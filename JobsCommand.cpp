@@ -12,7 +12,7 @@ void JobsCommand::execute(std::vector<string> args, State &s) {
         s.ilegal_command = true;
         return;
     }
-    int i = 1; // jobs array counter bug fixed
+    int i = 1; // jobs array counter is 1 based
     s.refresh_jobs();
     for (auto &job : s.p_state) {
         string lbl = job.stopped ? "(Stopped)" : "";

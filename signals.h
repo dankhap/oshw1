@@ -5,13 +5,12 @@
 #ifndef SMASH_SIGNALS_H
 #define SMASH_SIGNALS_H
 
-#include <signal.h>
 #include "Terminal.h"
 #include "State.h"
 
 class SignalHandler{
 private:
-    SignalHandler(){};
+    SignalHandler()= default;
 
 public:
     SignalHandler(SignalHandler& s) = delete;
@@ -24,7 +23,7 @@ public:
     ~SignalHandler() = default;
     static void INT_handler();
     static void STP_handler();
-    State* stateInstance;
+    State* stateInstance{};
 
 
 };

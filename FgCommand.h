@@ -11,7 +11,7 @@ enum class ContType { BG, FG};
 class ContCommand : public Command{
 private:
     ContType type;
-    static void continue_job( Job& j, bool wait);
+    static void continue_job( Job& j, bool wait, State& s);
 
 public:
     explicit ContCommand(ContType type);

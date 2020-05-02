@@ -35,6 +35,7 @@ public:
     std::vector<Job> p_state;
     State();
 
+    //remove dead jobs from jobs list
     void refresh_jobs();
 
 };

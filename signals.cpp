@@ -3,16 +3,15 @@
 //
 
 #include <iostream>
+#include <csignal>
 #include "signals.h"
 #include "State.h"
-
 
 void SignalHandler::INT_handler() {
     SignalHandler& s = getInstance();
     if(s.stateInstance->fg_pid == -1)return;
     kill(s.stateInstance->fg_pid, SIGINT);
     std::cout<<"\n"<<"smash > "<<"signal SIGINT was sent to pid "<<s.stateInstance->fg_pid<<"\n";
-
 
 }
 

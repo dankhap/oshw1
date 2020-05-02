@@ -40,12 +40,15 @@ void State::refresh_jobs() {
         if(result == 0){
             continue;
         }
+        //if job is just died or is non-existant, add it the dead job list
         if (result == -1 || WIFEXITED(status) || WIFSIGNALED(status)) {
             dead_jobs.push_back(job.pid);
             continue;
         }
         job.stopped = WIFSTOPPED(status);
     }
+
+    //remove all dead jobs from our list
     auto predicate = [&](const Job &v) { return find(dead_jobs.begin(), dead_jobs.end(), v.pid) != dead_jobs.end();};
     p_state.erase(std::remove_if(p_state.begin(), p_state.end(), predicate), p_state.end());
 }

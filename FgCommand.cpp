@@ -5,7 +5,8 @@
 #include <iostream>
 #include <wait.h>
 #include "FgCommand.h"
-#include "signals.h"
+
+using std::string;
 using std::vector;
 
 ContCommand::ContCommand(ContType type) : type(type) {}
@@ -37,10 +38,10 @@ void ContCommand::execute(std::vector<string> args, State &s) {
         return;
     }
 
-    continue_job(s.p_state[p_idx - 1], type == ContType::FG);
+    continue_job(s.p_state[p_idx - 1], type == ContType::FG, s);
 }
 
-void ContCommand::continue_job( Job&  j, bool wait) {
+void ContCommand::continue_job( Job&  j, bool wait, State& s) {
     if(!wait && !j.stopped) {
         std::cerr << "job is not stopped, cannot continue!" << std::endl;
         return;
@@ -51,8 +52,7 @@ void ContCommand::continue_job( Job&  j, bool wait) {
     j.stopped = false;
     int status = 0;
     if(wait){
-        SignalHandler& sig = SignalHandler::getInstance();
-        sig.stateInstance->fg_pid = j.pid;    // for signal handler if signal is sent to this process
+        s.fg_pid = j.pid;    // for signal handler if signal is sent to this process
         waitpid(j.pid, &status, WUNTRACED);  // to catch signal properly
     }
     
