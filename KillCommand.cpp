@@ -38,4 +38,6 @@ void KillCommand::execute(std::vector<string> args, State &s) {
         std::cout << "smash error: > kill " << pidx << "- cannot send signal" << std::endl;
         return;
     }
+    cout << "signal " << args[1] << " was sent to pid " << s.p_state[pidx - 1].pid << endl;
+    s.refresh_jobs();
 }
