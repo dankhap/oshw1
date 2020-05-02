@@ -27,10 +27,11 @@ void quitCOMMAND::execute(std::vector<string> args, State &s) {
 void quitCOMMAND::send_all_children(State &s, int sig) {
     int i = 1;
     for (auto& job : s.p_state) {
+        int status = 0;
         kill(job.pid, sig);
         std::cout<<"[" << i << "] " << job.name << " - Sending SIGTERM... ";
-        int res = waitpid(job.pid, nullptr,WNOHANG);
-        if(res != 0){
+        waitpid(job.pid, &status,WNOHANG);
+        if(!WIFEXITED(status)){
             sleep(5);
             std::cout<< "(5 sec passed)";
             kill(job.pid,SIGKILL);
