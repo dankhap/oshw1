@@ -25,7 +25,7 @@ class State
 {
 private:
 public:
-    int fg_pid; // for signal handler
+    int fg_pid{}; // for signal handler
     std::string cur_command;
     bool ilegal_command;
     bool exit_request;
@@ -35,6 +35,7 @@ public:
     std::vector<Job> p_state;
     State();
 
+    //remove dead jobs from jobs list
     void refresh_jobs();
 
 };

@@ -34,6 +34,7 @@ void Terminal::printBuildIn(const std::vector<string>& args) {
 
 
 /*Run function, takes input from user, stores in vector of strings for argument(cast from char to string (problem?)
+ *
  * */
 void Terminal::run(){ // git hub test
 
@@ -44,7 +45,7 @@ void Terminal::run(){ // git hub test
         vector<string> args;
         getline(cin, cl);
         if(cl.empty()) continue;
-        auto iss = istringstream{cl};
+        auto iss = istringstream{cl};  // parse argments into string vector
         auto token = string{};
         while (iss >> token) {
             args.emplace_back(token);
@@ -59,7 +60,7 @@ void Terminal::run(){ // git hub test
                 terminal_state.ilegal_command = false;
                 terminal_state.exit_request= false;
             }
-        } else(run_app(args));
+        } else(run_app(args)); // send to outer arg command
         
         push_to_history(args);
         // handle saving the commands;
@@ -84,14 +85,18 @@ void Terminal::push_to_history(const vector<string>& args) {
         terminal_state.history.push_back(args);
     }
 }
-
+/**
+ * run outer command by using fork, act accordingly on type of command (bg,fg...)
+ * @param tokens arguments
+ * @return
+ */
 pid_t Terminal::run_app(vector<string> tokens) {
     if(tokens.empty()){
         return 0;
     }
     bool is_bg = false;
     int res = 0;
-    if(tokens.back() == "&") {
+    if(tokens.back() == "&") {  // check if bg
         tokens.pop_back();
         is_bg = true;
     }
@@ -101,7 +106,9 @@ pid_t Terminal::run_app(vector<string> tokens) {
     vc.push_back((char*)nullptr);
     int pid = fork();
     if(pid == 0){
-        setpgrp(); // Change group id for child process so signals wont be sent to all, and only main process will catch signal.
+        // Change group id for child process so signals wont be sent to all,
+        // and only main process will catch signal.
+        setpgrp();
         if(execv(exe_name.c_str(), (char**)&vc[0]) == -1) {
             perror(nullptr);
             exit(errno);
@@ -111,7 +118,7 @@ pid_t Terminal::run_app(vector<string> tokens) {
             time_t start = time(nullptr);
             Job j(pid, start, exe_name);
             this->terminal_state.p_state.push_back(j);
-            usleep(100000);
+            usleep(100000); // if ilegal command so perror doesnt runover cout
         } else{
             // holds fg process pid for signal handler
             terminal_state.fg_pid = pid;  
@@ -125,7 +132,7 @@ pid_t Terminal::run_app(vector<string> tokens) {
     return 0;
 }
 
-State& Terminal::stateGetter() {
+State& Terminal::get_state() {
     return this->terminal_state;
 }
 

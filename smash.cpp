@@ -36,10 +36,11 @@ using std::map;
 //**************************************************************************************
 // function name: main
 // Description: main function of smash. get command from user and calls command functions
+// set handle fucntions for control Z and control C and initiate smash.
 //**************************************************************************************
 int main(int argc, char *argv[])
 {
-    
+    // built in commands are stored in map, all commands are inherited from class Command.
     std::map<std::string,Command*> commands = {{"pwd",new PWDcommand},
                                                {"cd", new cdCommand},
                                                {"history",new histCOMMAND},
@@ -55,17 +56,17 @@ int main(int argc, char *argv[])
 
     Terminal term(commands); // generate terminal
     SignalHandler& sig = SignalHandler::getInstance();
-    sig.stateInstance = &term.stateGetter();
+    sig.stateInstance = &term.get_state();
 
 
-
-    if(signal(SIGTSTP , reinterpret_cast<__sighandler_t>(sig.STP_handler)) == SIG_ERR) {
+    // set handle functions
+    if(signal(SIGTSTP , reinterpret_cast<__sighandler_t>(SignalHandler::STP_handler)) == SIG_ERR) {
         perror("smash error: failed to set ctrl-Z handler");
     }
-    if(signal(SIGINT , reinterpret_cast<__sighandler_t>(sig.INT_handler)) == SIG_ERR) {
+    if(signal(SIGINT , reinterpret_cast<__sighandler_t>(SignalHandler::INT_handler)) == SIG_ERR) {
         perror("smash error: failed to set ctrl-C handler");
     }
-
+    // start smash
     term.run(); // run it
 
     return 0;

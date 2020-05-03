@@ -8,9 +8,14 @@
 
 using std::string;
 
+/**
+ * execution fot cp command, opens two files and copies one to the other
+ * @param args old file name and new file name
+ * @param S current state of the shell
+ */
  void::cpCOMMAND::execute(std::vector<string> args, State &S) {
     if(args.size()!=3){
-        S.ilegal_command = true;
+        S.ilegal_command = true; // if illegal
         return;
     }
    std::string line;

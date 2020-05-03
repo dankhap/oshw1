@@ -7,6 +7,11 @@
 
 using std::string;
 
+/**
+ * prints out commands in history
+ * @param args should be empty
+ * @param S terminal status
+ */
 void histCOMMAND::execute(std::vector<string> args, State &S) {
     if(args.size()>1){
         S.ilegal_command = true;
