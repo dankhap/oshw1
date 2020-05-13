@@ -1,0 +1,7 @@
+cd ./tests
+infloop.out &
+infloop2.out &
+fg
+@c
+fg
+@c
