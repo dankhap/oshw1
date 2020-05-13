@@ -20,7 +20,7 @@ using namespace std;
 /*Terminal class initializer, very basic just for the beginning  */
 Terminal::Terminal(std::map<string,Command*> com):commands(std::move(com))
 {
-
+terminal_state.fg_pid =-1;
 
 }
 
